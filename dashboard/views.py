@@ -1,18 +1,15 @@
 from django.shortcuts import render, redirect 
 from shop.models import Product
-from .forms import ProductForm
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView, CreateView
 
-def list_products(request):
-    products = Product.objects.all()
-    return render(request, 'dashboard/product_list.html', {'products': products})
+class List_products(ListView):
+    model = Product
+    template_name = 'dashboard/product_list.html'
 
 
-def add_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('list_products')
-    else:
-        form = ProductForm()
-    return render(request, 'dashboard/create_product.html', {'form' : form})
+class Add_products(CreateView):
+    model = Product
+    template_name = 'dashboard/create_product'
+    fields = ['category','name', 'description', 'price', 'stock_quantity', 'size', 'color']
+    success_url = reverse_lazy('list_products')

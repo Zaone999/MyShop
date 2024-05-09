@@ -9,6 +9,7 @@ class ProductTests(TestCase):
     def setUp(self):
         self.category = Category.objects.create(name="Shoe" , description="Shoe category")        
         Product.objects.create(category = self.category, name="Test Shoe", description="Test Description", price=100.00, stock_quantity=10, size="10", color="Red")
+        print(Product.objects.all())
         self.data = {
         'name': 'New Shoe',
         'description': 'Comfortable casual shoes',
