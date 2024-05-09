@@ -2,14 +2,23 @@ from django.test import TestCase
 from shop.models import Product, Category
 from django.urls import reverse
 
-
-
+class CategoryTests(TestCase):
+    
+    def test_add_category(self):
+        self.category = Category.objects.create(name="new category" , description="a category")
+        self.assertTrue(Category.objects.filter(name="new category").exists())
+        response = self.client.post(reverse('add_category'), {
+            'name' : 'other new category',
+            'description' : self.category.description
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Category.objects.filter(name="other new category").exists())
+        
 class ProductTests(TestCase):
     
     def setUp(self):
         self.category = Category.objects.create(name="Shoe" , description="Shoe category")        
         Product.objects.create(category = self.category, name="Test Shoe", description="Test Description", price=100.00, stock_quantity=10, size="10", color="Red")
-        print(Product.objects.all())
         self.data = {
         'name': 'New Shoe',
         'description': 'Comfortable casual shoes',
@@ -31,4 +40,5 @@ class ProductTests(TestCase):
         response = self.client.post(reverse('add_product'), self.data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Product.objects.filter(name="New Shoe").exists())
+        
                
