@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+    {% block content %}
+        <h2>Product List</h2>
+        <ul>
+            {% for product in object_list %}
+            <div>
+                {{ product.name }} - {{ product.price }}
+                <a href="{% url 'edit_product' product.id %}">Edit</a>
+                <a href="{% url 'delete_product' product.id %}" onclick="return confirm('Are you sure?');">Delete</a>
+            </div>
+            {% endfor %}
+        </ul>
+    {% endblock %}

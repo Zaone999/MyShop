@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Logout</title>
 </head>
 <body>
     {% block content %}
-        <p>You have been logged out. <a href="{% url 'login' %}">Login again?</a></p>
+        <p>You have been logged out. <a href="{% url 'login' %}">Login again?</a> <a href="{% url 'home' %}">Go to home Page?</a></p>
     {% endblock %}
     
 </body>
