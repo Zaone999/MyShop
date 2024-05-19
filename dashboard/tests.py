@@ -18,25 +18,18 @@ class ProductTests(TestCase):
     
     def setUp(self):
         self.category = Category.objects.create(name="Shoe" , description="Shoe category")        
-        self.product = Product.objects.create(category = self.category, name="Test Shoe", description="Test Description", price=100.00, stock_quantity=10, size="10", color="Red")
-        self.other_product = Product.objects.create(category = self.category, name="Another Test Shoe", description="Test Description", price=100.00, stock_quantity=10, size="10", color="Red")
-
+        self.product = Product.objects.create(category = self.category, name="Test Shoe", description="Test Description", price=100.00)
+        self.other_product = Product.objects.create(category = self.category, name="Another Test Shoe", description="Test Description", price=100.00)
         self.data = {
             'name': 'New Shoe',
             'description': 'Comfortable casual shoes',
             'price': 120.50,
-            'stock_quantity': 15,
-            'size': '9',
-            'color': 'Blue',
             'category':self.category.id
         }
         self.editedData = {
-            'name': 'New Shoe',
-            'description': 'Very Comfortable casual shoes',
-            'price': 18.50,
-            'stock_quantity': 20,
-            'size': '9',
-            'color': 'Blue',
+            'name': 'edited shoe',
+            'description': 'Comfortable casual shoes',
+            'price': 40,
             'category':self.category.id
         }
 
@@ -54,9 +47,10 @@ class ProductTests(TestCase):
         
     def test_edit_product_view(self):
         self.client.post(reverse('edit_product' , args=[self.product.id]), self.editedData)
-        self.assertTrue(Product.objects.filter(pk=self.product.id, description="Very Comfortable casual shoes", price=18.50, stock_quantity=20).exists())
+        self.assertTrue(Product.objects.filter(pk=self.product.id, price=40).exists())
         self.assertEqual(len(list(Product.objects.all())), 2)
         
     def test_delete_product_view(self):
         self.client.post(reverse('delete_product' , args=[self.product.id]))
         self.assertEqual(len(list(Product.objects.all())), 1)
+    

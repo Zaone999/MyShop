@@ -63,3 +63,6 @@ class TestAuthenticationFunctions(TestCase):
         # test for login in
         self.client.post(self.login_url, self.valid_login_data)
         self.assertTrue('_auth_user_id' in self.client.session)
+
+
+        

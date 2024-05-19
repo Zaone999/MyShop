@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -13,10 +12,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    stock_quantity = models.IntegerField()
-    size = models.CharField(max_length=10)
-    color = models.CharField(max_length=50)
-
+    image = models.ImageField(upload_to='product_images/', default='default.webp')
+    price = models.IntegerField(default=50)
+    last_updated = models.DateTimeField(auto_now=True)
+    quantity_added = models.IntegerField(default=0)
     def __str__(self):
         return self.name
