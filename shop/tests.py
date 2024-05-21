@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from dashboard.models import Product
+from shop.models import Product
 from shop.models import Category
 from users.models import Cart, CartItem
 

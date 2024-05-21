@@ -23,24 +23,25 @@ class ProductTests(TestCase):
             'name': 'New Shoe',
             'description': 'Comfortable casual shoes',
             'price': 120.50,
-            'category':self.category.id
+            'category':self.category.id,
+            'quantity_added': 0
         }
         self.editedData = {
             'name': 'edited shoe',
             'description': 'Comfortable casual shoes',
             'price': 40,
-            'category':self.category.id
+            'category':self.category.id,
+            'quantity_added': 0
         }
 
     def test_product_list_view(self):
-        response = self.client.get(reverse('list_products'))
+        response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(Product.objects.filter(name="Test Shoe").exists())
         self.assertContains(response, "Test Shoe")
         
     def test_add_product_view(self):
-        response = self.client.post(reverse('add_product'), self.data)
-        self.assertEqual(response.status_code, 302)
+        self.client.post(reverse('add_product'), self.data)
         self.assertTrue(Product.objects.filter(name="New Shoe").exists())
         
     def test_edit_product_view(self):

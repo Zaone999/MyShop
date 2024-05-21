@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "users.Profile"
 LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = reverse_lazy('login')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

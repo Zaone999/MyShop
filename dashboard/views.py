@@ -6,6 +6,8 @@ from django.shortcuts import render
 import csv
 import openpyxl
 from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import PermissionDenied
 
 class List_products(ListView):
     model = Product
@@ -24,12 +26,12 @@ class Add_products(CreateView):
     model = Product
     template_name = 'dashboard/add_product.html'
     fields = ['category','name', 'description','quantity_added','image']
-    success_url = reverse_lazy('list_products')
+    success_url = reverse_lazy('dashboard')
     
 class Update_product(UpdateView):
     model = Product
     template_name = 'dashboard/update_product.html'
-    fields = ['category','name', 'description','quantity_added','image']
+    fields = ['category','name', 'description','price','quantity_added','image']
     success_url = reverse_lazy('dashboard')
 
 class Delete_product(DeleteView):
@@ -43,6 +45,12 @@ class Add_category(CreateView):
     fields = ['name', 'description']
     success_url = reverse_lazy('dashboard')
 
+def check_dashboard_permission(user):
+    if not user.has_perm('users.access_dashboard'):
+        raise PermissionDenied
+    return True
+
+@user_passes_test(check_dashboard_permission)
 def dashboard_view(request):
     query = request.GET.get('search')
     if query:

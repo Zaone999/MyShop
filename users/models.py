@@ -20,6 +20,13 @@ class Profile(AbstractUser):
         default=USER,
     )  
       
+    class Meta:
+        permissions = [
+            ("can_change_profile", "Can change Profile"),
+            ("access_dashboard", "Can access dashboard")
+        ]  
+      
+      
 class Cart(models.Model):
     user = models.OneToOneField(Profile, on_delete=models.CASCADE)
     

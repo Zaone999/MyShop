@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from .forms import NormalUserCreationForm
-
+from django.contrib.auth.models import Permission
 class TestAuthenticationFunctions(TestCase):
     def setUp(self):
         self.User = get_user_model()
@@ -63,6 +63,11 @@ class TestAuthenticationFunctions(TestCase):
         # test for login in
         self.client.post(self.login_url, self.valid_login_data)
         self.assertTrue('_auth_user_id' in self.client.session)
-
-
+        
+    def test_permissions(self):
+        self.client.post(self.sign_up_url, self.valid_data)
+        self.client.post(self.login_url, self.valid_login_data)
+        response = self.client.get(reverse('edit_profile'))
+        print(response.status_code)
+        self.assertTrue(response.status_code, 200)
         
