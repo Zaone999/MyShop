@@ -134,3 +134,8 @@ venv.bak/
 # Databases
 *.db
 *.sql
+
+/static/
+/media/
+
+shoestore/settings.py
