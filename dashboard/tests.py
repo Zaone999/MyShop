@@ -3,7 +3,6 @@ from shop.models import Product, Category
 from django.urls import reverse
 
 class CategoryTests(TestCase):
-    
     def test_add_category(self):
         self.category = Category.objects.create(name="new category" , description="a category")
         self.assertTrue(Category.objects.filter(name="new category").exists())
@@ -39,7 +38,6 @@ class ProductTests(TestCase):
         self.assertTrue(Product.objects.filter(name="Test Shoe").exists())
         self.assertContains(response, "Test Shoe")
         
-    
     def test_add_product_view(self):
         response = self.client.post(reverse('add_product'), self.data)
         self.assertEqual(response.status_code, 302)
