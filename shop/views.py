@@ -12,5 +12,6 @@ class List_products(ListView):
         context['categories'] = Category.objects.all()
         if (self.request.user.is_authenticated):
             context['cart'], created = Cart.objects.get_or_create(user=self.request.user)
-            print(context['cart'])
+        if (self.request.user.has_perm('users.access_dashboard')):
+            context['owner'] = True
         return context
