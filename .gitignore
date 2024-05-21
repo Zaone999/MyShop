@@ -134,9 +134,3 @@ venv.bak/
 # Databases
 *.db
 *.sql
-
-# Media files
-media/
-
-# Static files
-static/
