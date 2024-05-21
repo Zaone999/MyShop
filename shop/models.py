@@ -13,8 +13,8 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='product_images/', default='default.webp')
-    price = models.IntegerField(default=50)
+    price = models.PositiveIntegerField(default=50)
     last_updated = models.DateTimeField(auto_now=True)
-    quantity_added = models.IntegerField(default=0)
+    quantity_added = models.PositiveBigIntegerField(default=0)
     def __str__(self):
         return self.name
